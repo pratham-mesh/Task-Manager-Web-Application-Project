@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build Front-End') {
+            steps {
+                sh 'cd frontend && docker build -t frontend-image .'
+            }
+        }
+        stage('Build Back-End') {
+            steps {
+                sh 'cd backend && docker build -t backend-image .'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'docker-compose up -d'
+            }
+        }
+    }
+}
